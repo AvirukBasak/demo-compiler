@@ -15,8 +15,8 @@ BIN_DIR     := bin
 TARGET      := $(BIN_DIR)/compiler
 DBG_TARGET  := $(BIN_DIR)/compiler-dbg
 
-LEXER 		:= $(SRC_DIR)/lexer.l.c
-PARSER		:= $(SRC_DIR)/parser.y.c
+LEXER       := $(SRC_DIR)/lexer.l.c
+PARSER      := $(SRC_DIR)/parser.y.c
 
 SOURCES     := $(CSRC_DIR)/lexer.c $(CSRC_DIR)/parser.c
 OBJDIRS     := $(patsubst $(CSRC_DIR)%, $(BIN_DIR)%, $(shell dirname $(SOURCES)))

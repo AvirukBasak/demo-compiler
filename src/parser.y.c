@@ -12,7 +12,7 @@
 
 %%
 
-calclist: /* nothing */                       // matches at beginning of input
+calclist: /* nothing */                        // matches at beginning of input
  | calclist exp EOL { printf(">> %d\n", $2); } // EOL is end of an expression
  ;
 
