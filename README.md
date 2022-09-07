@@ -1,2 +1,2 @@
 # Demo Compiler
-Demo compiler in Flex & Biso
+Demo compiler in Flex & Bison
