@@ -71,8 +71,6 @@ mkdirp:
 clean:
 	@rm -rf $(OBJECTS)
 	@rm -rf $(DBG_OBJECTS)
-	@rm -rf $(TARGET)
-	@rm -rf $(DBG_TARGET)
 	@rm -rf $(CSRC_DIR)/*
 
 cleaner:
