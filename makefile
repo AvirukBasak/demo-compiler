@@ -18,7 +18,7 @@ DBG_TARGET  := $(BIN_DIR)/compiler-dbg
 LEXER       := $(SRC_DIR)/lexer.l.c
 PARSER      := $(SRC_DIR)/parser.y.c
 
-SOURCES     := $(CSRC_DIR)/lexer.c $(CSRC_DIR)/parser.c
+SOURCES     := $(CSRC_DIR)/lexer.c $(CSRC_DIR)/parser.c $(CSRC_DIR)/map.c
 OBJDIRS     := $(patsubst $(CSRC_DIR)%, $(BIN_DIR)%, $(shell dirname $(SOURCES)))
 
 ## release build
@@ -50,6 +50,7 @@ $(DBG_OBJECTS): $(SOURCES)
 $(SOURCES): $(LEXER) $(PARSER)
 	flex -o $(CSRC_DIR)/lexer.c $(LEXER)
 	bison -d -o $(CSRC_DIR)/parser.c $(PARSER)
+	@cp $(SRC_DIR)/templatelib/* $(CSRC_DIR)/
 
 ## execution
 

@@ -45,13 +45,15 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    NUMBER = 258,
-    ADD = 259,
-    SUB = 260,
-    MUL = 261,
-    DIV = 262,
-    ABS = 263,
-    EOL = 264
+    ALNUM = 258,
+    ASSIGN = 259,
+    NUMBER = 260,
+    ADD = 261,
+    SUB = 262,
+    MUL = 263,
+    DIV = 264,
+    MOD = 265,
+    EOL = 266
   };
 #endif
 
