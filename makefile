@@ -50,7 +50,7 @@ $(DBG_OBJECTS): $(SOURCES)
 $(SOURCES): $(LEXER) $(PARSER)
 	flex -o $(CSRC_DIR)/lexer.c $(LEXER)
 	bison -d -o $(CSRC_DIR)/parser.c $(PARSER)
-	@cp $(SRC_DIR)/templatelib/* $(CSRC_DIR)/
+	@cp $(SRC_DIR)/lib/* $(CSRC_DIR)/
 
 ## execution
 

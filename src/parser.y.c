@@ -1,6 +1,7 @@
 /* simplest version of calculator */
 %{
     #include <stdio.h>
+    #include <stdbool.h>
     #include <stdlib.h>
 
     #include "map.h"
@@ -23,30 +24,37 @@
 %%
 
 input:
-| input exp EOL     { printf("  %d\n", $2); }
+| input assignment EOL { printf("%d\n", $2); }
+| input exp EOL        { printf("%d\n", $2); }
+;
+
+assignment:
+| ALNUM ASSIGN exp {
+    map_set(variables, $1, $3);
+    $$ = $3;
+}
 ;
 
 exp:
-| ALNUM ASSIGN NUMBER  { map_set(variables, yytext, $3); $$ = $3; }
-| NUMBER MUL NUMBER { $$ = $1 * $3; }
-| NUMBER DIV NUMBER { $$ = $1 / $3; }
-| NUMBER MOD NUMBER { $$ = $1 % $3; }
-| prod ADD prod     { $$ = $1 + $3; }
-| prod SUB prod     { $$ = $1 - $3; }
-| exp MUL exp       { $$ = $1 * $3; }
-| exp DIV exp       { $$ = $1 / $3; }
-| exp MOD exp       { $$ = $1 % $3; }
-| NUMBER            { $$ = $1; }
+| exp ADD exp     { $$ = $1 + $3; }
+| exp SUB exp     { $$ = $1 - $3; }
+| term            { $$ = $1; }
 ;
 
-prod:
-| NUMBER MUL NUMBER { $$ = $1 * $3; }
-| NUMBER DIV NUMBER { $$ = $1 / $3; }
-| NUMBER MOD NUMBER { $$ = $1 % $3; }
-| prod MUL prod     { $$ = $1 * $3; }
-| prod DIV prod     { $$ = $1 / $3; }
-| prod MOD prod     { $$ = $1 % $3; }
+term:
+| term MUL term     { $$ = $1 * $3; }
+| term DIV term     { $$ = $1 / $3; }
+| term MOD term     { $$ = $1 % $3; }
 | NUMBER            { $$ = $1; }
+| ALNUM {
+    bool found;
+    $$ = map_get(variables, $1, &found);
+    if (!found) {
+        fprintf(stderr, "parser: line %d: undefined variable\n", yylineno);
+        printf("assuming value = ");
+        $$ = 0;
+    }
+}
 ;
 
 %%

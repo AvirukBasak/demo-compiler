@@ -11,21 +11,18 @@
 #endif
 
 typedef MAP_VALUE_TYPE ValueType;
-
-typedef char *map_string;
 typedef struct Map_T *Map;
-
 typedef struct Map_T
 {
-    map_string *keys;
+    int *keys;
     ValueType *values;
     size_t length;
 } Map_T;
 
 Map new_map();
-void map_set(Map m, const map_string key, ValueType value);
-size_t map_findKey(Map m, const map_string key);
-ValueType map_get(Map m, const map_string key, bool *found);
+void map_set(Map m, const int key, ValueType value);
+size_t map_findKey(Map m, const int key);
+ValueType map_get(Map m, const int key, bool *found);
 void map_free(Map *m);
 
 #endif

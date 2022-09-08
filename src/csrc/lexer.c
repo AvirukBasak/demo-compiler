@@ -448,11 +448,14 @@ char *yytext;
 #line 1 "src/lexer.l.c"
 /* recognize tokens for the calculator and print them out */
 #line 3 "src/lexer.l.c"
+    #include <string.h>
     #include "parser.h"
     #include "map.h"
+
     extern Map variables;
-#line 455 "src/csrc/lexer.c"
-#line 456 "src/csrc/lexer.c"
+    int hash(const char *s);
+#line 458 "src/csrc/lexer.c"
+#line 459 "src/csrc/lexer.c"
 
 #define INITIAL 0
 
@@ -669,10 +672,10 @@ YY_DECL
 		}
 
 	{
-#line 8 "src/lexer.l.c"
+#line 11 "src/lexer.l.c"
 
 
-#line 676 "src/csrc/lexer.c"
+#line 679 "src/csrc/lexer.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -731,66 +734,66 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 10 "src/lexer.l.c"
+#line 13 "src/lexer.l.c"
 { return ADD; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 11 "src/lexer.l.c"
+#line 14 "src/lexer.l.c"
 { return SUB; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 12 "src/lexer.l.c"
+#line 15 "src/lexer.l.c"
 { return MUL; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 13 "src/lexer.l.c"
+#line 16 "src/lexer.l.c"
 { return DIV; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 14 "src/lexer.l.c"
+#line 17 "src/lexer.l.c"
 { return MOD; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 15 "src/lexer.l.c"
+#line 18 "src/lexer.l.c"
 { return ASSIGN; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 16 "src/lexer.l.c"
-{ return ALNUM; }
+#line 19 "src/lexer.l.c"
+{ yylval = hash(yytext); return ALNUM; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 17 "src/lexer.l.c"
+#line 20 "src/lexer.l.c"
 { yylval = atoi(yytext); return NUMBER; }
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 18 "src/lexer.l.c"
+#line 21 "src/lexer.l.c"
 { return EOL; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 19 "src/lexer.l.c"
+#line 22 "src/lexer.l.c"
 { /* ignore whitespace */ }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 20 "src/lexer.l.c"
+#line 23 "src/lexer.l.c"
 { fprintf(stderr, "lexer: line %d: unexpected character '%c'\n", yylineno, *yytext); exit(1); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 22 "src/lexer.l.c"
+#line 25 "src/lexer.l.c"
 ECHO;
 	YY_BREAK
-#line 794 "src/csrc/lexer.c"
+#line 797 "src/csrc/lexer.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1795,12 +1798,22 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 22 "src/lexer.l.c"
+#line 25 "src/lexer.l.c"
 
 
 Map variables;
 
 int yywrap() { return 1; }
+
+int hash(const char *s)
+{
+    int hash = 0;
+    size_t i, len = strlen(s);
+    for (i = 0; i < len; i++) {
+        hash += hash * 10 + (s[i] ^ hash);
+    }
+    return hash;
+}
 
 int main(int argc, char **argv)
 {
