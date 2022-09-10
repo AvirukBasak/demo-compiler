@@ -1,11 +1,10 @@
 /* recognize tokens for the calculator and print them out */
 %{
     #include <string.h>
+    #include "../include/globalvars.h"
+    #include "../include/miscfunc.h"
+    #include "../include/intmap.h"
     #include "parser.h"
-    #include "../include/map.h"
-
-    extern Map variables;
-    int hash(const char *s);
 %}
 
 %%
@@ -18,30 +17,18 @@
 "="                    { return ASSIGN; }
 [a-zA-Z_]+             { yylval = hash(yytext); return ALNUM; }
 [0-9.]+                { yylval = atoi(yytext); return NUMBER; }
-\n                     { return EOL; }
+\n                     { yylineno++; return EOL; }
 [ \t\f]                { /* ignore whitespace */ }
 .                      { fprintf(stderr, "lexer: line %d: unexpected character '%c'\n", yylineno, *yytext); exit(1); }
 
 %%
 
-Map variables;
-
 int yywrap() { return 1; }
-
-int hash(const char *s)
-{
-    int hash = 0;
-    size_t i, len = strlen(s);
-    for (i = 0; i < len; i++) {
-        hash += hash * 10 + (s[i] ^ hash);
-    }
-    return hash;
-}
 
 int main(int argc, char **argv)
 {
-    variables = new_map();
+    intVars = new_intMap();
     int tok = yyparse();
-    map_free(&variables);
+    intMap_free(&intVars);
     return 0;
 }

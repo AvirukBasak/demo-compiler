@@ -3,15 +3,9 @@
     #include <stdio.h>
     #include <stdbool.h>
     #include <stdlib.h>
-
-    #include "../include/map.h"
-    extern Map variables;
-
-    extern int yylineno;
-    extern char *yytext;
-    int yylex(void);
-    int yyerror(char *);
-
+    #include "../include/globalvars.h"
+    #include "../include/miscfunc.h"
+    #include "../include/intmap.h"
 %}
 
 /* declare tokens */
@@ -30,7 +24,7 @@ input:
 
 assignment:
 | ALNUM ASSIGN exp {
-    map_set(variables, $1, $3);
+    intMap_set(intVars, $1, $3);
     $$ = $3;
 }
 ;
@@ -48,7 +42,7 @@ term:
 | NUMBER            { $$ = $1; }
 | ALNUM {
     bool found;
-    $$ = map_get(variables, $1, &found);
+    $$ = intMap_get(intVars, $1, &found);
     if (!found) {
         fprintf(stderr, "parser: line %d: undefined variable\n", yylineno);
         printf("assuming value = ");
