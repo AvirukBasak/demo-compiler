@@ -25,15 +25,17 @@
 input:
 | input KEYWORD_PRINT exp EOL { printf("%d\n>> ", $3); }
 | input assignment EOL        { printf(">> "); }
-| input exp EOL               { $$ = $1; printf(">> "); }
+| input exp EOL               { if (!errno) printf("%d\n", $2); printf(">> "); }
 ;
 
 assignment:
 | TYPE_INT ALNUM ASSIGN exp {
     intMap_set(intVars, $2, $4);
+    $$ = $4;
 }
 | ALNUM ASSIGN exp {
     intMap_set(intVars, $1, $3);
+    $$ = $3;
 }
 ;
 
@@ -57,8 +59,10 @@ term:
     size_t len = strlen(code.varname);
     if (code.varname[len -1] == '\n')
         code.varname[len -1] = 0;
-    if (!found) fprintf(stderr, "parser: line %d: undefined variable '%s'\n", yylineno, code.varname);
-    else $$ = temp;
+    if (!found) {
+        fprintf(stderr, "parser: line %d: undefined variable '%s'\n", yylineno, code.varname);
+        errno = 1;
+    } else $$ = temp;
 }
 ;
 

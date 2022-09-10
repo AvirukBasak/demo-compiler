@@ -4,6 +4,7 @@
 #include "../include/intmap.h"
 #include <inttypes.h>
 
+extern int errno;
 extern IntMap intVars;
 extern int yylineno;
 extern char *yytext;

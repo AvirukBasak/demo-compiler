@@ -20,7 +20,7 @@
 "/"                    { return DIV; }
 "%"                    { return MOD; }
 "="                    { return ASSIGN; }
-[a-zA-Z_]+             { code.varname = yytext; yylval = hash(code.varname); return ALNUM; }
+[a-zA-Z][a-zA-Z_0-9]*  { code.varname = yytext; yylval = hash(code.varname); return ALNUM; }
 [0-9]+                 { yylval = atoi(yytext); return NUMBER; }
 \n                     { yylineno++; return EOL; }
 [ \t\f]                { /* ignore whitespace */ }
