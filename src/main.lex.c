@@ -16,6 +16,7 @@
 "+"                    { return ADD; }
 "-"                    { return SUB; }
 "*"                    { return MUL; }
+"**"                   { return POW; }
 "/"                    { return DIV; }
 "%"                    { return MOD; }
 "="                    { return ASSIGN; }

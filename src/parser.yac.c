@@ -4,6 +4,7 @@
     #include <string.h>
     #include <stdbool.h>
     #include <stdlib.h>
+    #include <math.h>
     #include "../include/globalvars.h"
     #include "../include/miscfunc.h"
     #include "../include/intmap.h"
@@ -16,7 +17,7 @@
 %token ASSIGN
 %token NUMBER
 %token OPEN_PARENTHESIS CLOSE_PARENTHESIS
-%token ADD SUB MUL DIV MOD
+%token ADD SUB MUL DIV MOD POW
 %token EOL
 
 %%
@@ -45,6 +46,7 @@ exp:
 term:
 | OPEN_PARENTHESIS exp CLOSE_PARENTHESIS  { $$ = $2; }
 | OPEN_PARENTHESIS term CLOSE_PARENTHESIS { $$ = $2; }
+| term POW term                           { $$ = pow($1, $3); }
 | term MUL term                           { $$ = $1 * $3; }
 | term DIV term                           { $$ = $1 / $3; }
 | term MOD term                           { $$ = $1 % $3; }
