@@ -15,8 +15,8 @@ YACC_DIR    := $(SRC_DIR)/yacc
 TARGET      := $(BIN_DIR)/exe
 DBG_TARGET  := $(BIN_DIR)/exe-dbg
 
-LEXER       := $(SRC_DIR)/lexer.l.c
-PARSER      := $(SRC_DIR)/parser.y.c
+LEXER       := $(SRC_DIR)/main.lex.c
+PARSER      := $(SRC_DIR)/parser.yac.c
 
 YACC_SRC    := $(YACC_DIR)/parser.c $(YACC_DIR)/lexer.c
 CSOURCES    := $(shell find $(CSRC_DIR) | grep '\.'$(SRCEXT))
