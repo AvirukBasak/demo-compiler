@@ -2,3 +2,4 @@
 #include "../include/intmap.h"
 
 IntMap intVars;
+CodeInputInfo code;
