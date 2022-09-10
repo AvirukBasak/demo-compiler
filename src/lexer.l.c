@@ -2,7 +2,7 @@
 %{
     #include <string.h>
     #include "parser.h"
-    #include "map.h"
+    #include "../include/map.h"
 
     extern Map variables;
     int hash(const char *s);

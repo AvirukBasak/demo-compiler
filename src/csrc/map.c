@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "map.h"
+#include "../include/map.h"
 
 Map new_map()
 {

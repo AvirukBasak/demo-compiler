@@ -4,7 +4,7 @@
     #include <stdbool.h>
     #include <stdlib.h>
 
-    #include "map.h"
+    #include "../include/map.h"
     extern Map variables;
 
     extern int yylineno;
