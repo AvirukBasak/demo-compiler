@@ -46,7 +46,7 @@ $(OBJECTS): $(CSOURCES)
 	$(CC) $(CFLAGS) -c $(patsubst $(BIN_DIR)/%.$(OBJEXT), $(CSRC_DIR)/%.$(SRCEXT), $@) -o $@
 
 $(YACC_OBJ): $(YACC_SRC)
-	$(CC) $(CFLAGS) -c $(patsubst $(BIN_DIR)/yacc/%.$(OBJEXT), $(YACC_SRC)/%.$(SRCEXT), $@) -o $@
+	$(CC) $(CFLAGS) -c $(patsubst $(BIN_DIR)/yacc/%.$(OBJEXT), $(YACC_DIR)/%.$(SRCEXT), $@) -o $@
 
 ## debug build
 
@@ -62,7 +62,7 @@ $(DBG_OBJECTS): $(CSOURCES)
 	$(CC) $(CDBGFLAGS) -c $(patsubst $(BIN_DIR)/%-dbg.$(OBJEXT), $(CSRC_DIR)/%.$(SRCEXT), $@) -o $@
 
 $(YACC_DBG_OBJ): $(YACC_SRC)
-	$(CC) $(CDBGFLAGS) -c $(patsubst $(BIN_DIR)/yacc/%-dbg.$(OBJEXT), $(YACC_SRC)/%.$(SRCEXT), $@) -o $@
+	$(CC) $(CDBGFLAGS) -c $(patsubst $(BIN_DIR)/yacc/%-dbg.$(OBJEXT), $(YACC_DIR)/%.$(SRCEXT), $@) -o $@
 
 # flex and bison
 
