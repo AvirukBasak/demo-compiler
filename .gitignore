@@ -1,1 +1,3 @@
 bin/
+src/yacc/*.c
+src/yacc/*.h
