@@ -10,6 +10,7 @@
 %%
 
 "int "                 { return TYPE_INT; }
+"var"                  { return KEYWORD_VAR; }
 "print "               { return KEYWORD_PRINT; }
 "("                    { return OPEN_PARENTHESIS; }
 ")"                    { return CLOSE_PARENTHESIS; }
@@ -20,7 +21,7 @@
 "/"                    { return DIV; }
 "%"                    { return MOD; }
 "="                    { return ASSIGN; }
-[a-zA-Z][a-zA-Z_0-9]*  { code.varname = yytext; yylval = hash(code.varname); return ALNUM; }
+[a-zA-Z][a-zA-Z_0-9]*  { code.varname = yytext; yylval = MapFunc(int, hashString, code.varname); return ALNUM; }
 [0-9]+                 { yylval = atoi(yytext); return NUMBER; }
 \n                     { yylineno++; return EOL; }
 [ \t\f]                { /* ignore whitespace */ }

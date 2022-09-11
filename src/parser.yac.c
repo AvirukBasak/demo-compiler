@@ -12,7 +12,7 @@
 
 /* declare tokens */
 %token TYPE_INT
-%token KEYWORD_PRINT
+%token KEYWORD_PRINT KEYWORD_VAR
 %token ALNUM
 %token ASSIGN
 %token NUMBER
@@ -23,9 +23,10 @@
 %%
 
 input:
-| input KEYWORD_PRINT exp EOL { printf("%d\n>> ", $3); }
-| input assignment EOL        { printf(">> "); }
-| input exp EOL               { if (!errno) printf("%d\n", $2); printf(">> "); }
+| input KEYWORD_PRINT KEYWORD_VAR EOL { printf("variables = "); MapFunc(int, print, intVars); printf(">> "); }
+| input KEYWORD_PRINT exp EOL         { printf("%d\n>> ", $3); }
+| input assignment EOL                { printf(">> "); }
+| input exp EOL                       { if (!errno) printf("%d\n", $2); printf(">> "); }
 ;
 
 assignment:
