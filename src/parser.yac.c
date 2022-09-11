@@ -35,7 +35,7 @@ assignment:
     $$ = $4;
 }
 | ALNUM ASSIGN exp {
-     MapFunc(int, set, intVars, $1, $3);
+    MapFunc(int, set, intVars, $1, $3);
     $$ = $3;
 }
 ;
