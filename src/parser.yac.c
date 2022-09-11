@@ -30,11 +30,11 @@ input:
 
 assignment:
 | TYPE_INT ALNUM ASSIGN exp {
-    intMap_set(intVars, $2, $4);
+    MapFunc(int, set, intVars, $2, $4);
     $$ = $4;
 }
 | ALNUM ASSIGN exp {
-    intMap_set(intVars, $1, $3);
+     MapFunc(int, set, intVars, $1, $3);
     $$ = $3;
 }
 ;
@@ -55,7 +55,7 @@ term:
 | NUMBER                                  { $$ = $1; }
 | ALNUM {
     bool found;
-    int temp = (int) intMap_get(intVars, $1, &found);
+    int temp = (int) MapFunc(int, get, intVars, $1, &found);
     size_t len = strlen(code.varname);
     if (code.varname[len -1] == '\n')
         code.varname[len -1] = 0;

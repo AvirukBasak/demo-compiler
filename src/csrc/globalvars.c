@@ -2,5 +2,5 @@
 #include "../include/intmap.h"
 
 int errno = 0;
-IntMap intVars;
+Map(int) intVars;
 CodeInputInfo code;

@@ -32,9 +32,9 @@ int yywrap() { return 1; }
 
 int main(int argc, char **argv)
 {
-    intVars = new_intMap();
+    intVars = MapFunc(int, newmap);
     printf(">> ");
     int tok = yyparse();
-    intMap_free(&intVars);
+    MapFunc(int, free, &intVars);
     return 0;
 }

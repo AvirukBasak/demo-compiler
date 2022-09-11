@@ -5,7 +5,7 @@
 #include <inttypes.h>
 
 extern int errno;
-extern IntMap intVars;
+extern Map(int) intVars;
 extern int yylineno;
 extern char *yytext;
 
